@@ -42,7 +42,7 @@ function getPlayerChoice() {
 function playRound(playerSelection, computerSelection) {
   // Player cancels out of prompt
   if (playerSelection === undefined) {
-    return "Player chickened out... Cluck!";
+    return;
   }
 
   // Win combinations array
@@ -92,6 +92,9 @@ function playGame() {
 
   for (let i = 0; i < 5; i++) {
     let roundResult = playRound(getPlayerChoice(), getComputerChoice());
+    if (roundResult === undefined) {
+      return("Player chickened out...");
+    }
 
     switch (roundResult) {
       case "tie":
