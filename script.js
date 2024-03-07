@@ -44,6 +44,7 @@ function playRound(playerSelection, computerSelection) {
   if (playerSelection === undefined) {
     return "Player chickened out... Cluck!";
   }
+
   // Win combinations array
   const wins = [
     ["rock", "scissors"],
@@ -53,9 +54,12 @@ function playRound(playerSelection, computerSelection) {
   let combination = [playerSelection, computerSelection];
   let playerWins = false;
 
+  console.log(`The computer picked: ${computerSelection}`);
+
   // Tie Result
   if (playerSelection === computerSelection) {
-    result = "It's a tie. Boring!";
+    result = "tie";
+    console.log("It's a tie.");
   } else {
     // Player win Result
     for (let i = 0; i < wins.length; i++) {
@@ -65,16 +69,54 @@ function playRound(playerSelection, computerSelection) {
       }
     }
     if (playerWins) {
-      result = `Result: ${playerSelection} beats ${computerSelection}. You win. Congratulations!`;
+      result = "player";
+      console.log(
+        `Result: ${playerSelection} beats ${computerSelection}. You win this round!`
+      );
     } else {
       // Computer win Result
-      result = `Result: ${computerSelection} beats ${playerSelection}. Oh, you lost... Better luck next time!`;
+      result = "computer";
+      console.log(
+        `Result: ${computerSelection} beats ${playerSelection}. You lost this round!`
+      );
     }
   }
 
-  console.log(`The computer picked: ${computerSelection}`);
+  return result;
+}
+
+function playGame() {
+  let result;
+  let totalPlayerWins = 0;
+  let totalComputerWins = 0;
+
+  for (let i = 0; i < 5; i++) {
+    let roundResult = playRound(getPlayerChoice(), getComputerChoice());
+
+    switch (roundResult) {
+      case "tie":
+        // Neither one scores
+        break;
+      case "player":
+        totalPlayerWins++;
+        break;
+      case "computer":
+        totalComputerWins++;
+        break;
+    }
+  }
+
+  // End of game messages
+  if (totalPlayerWins === totalComputerWins) {
+    result = "It's a draw. Boring!";
+  } else if (totalPlayerWins > totalComputerWins) {
+    result = "You are the winner. Congratulations!";
+  } else {
+    result = "Oh no, you lost... Better luck next time!";
+  }
+
   return result;
 }
 
 // Main function call
-console.log(playRound(getPlayerChoice(), getComputerChoice()));
+console.log(playGame());
