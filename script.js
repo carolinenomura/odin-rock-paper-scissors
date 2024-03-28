@@ -52,23 +52,23 @@ function playRound(playerSelection, computerSelection) {
     ["paper", "rock"],
   ];
   let combination = [playerSelection, computerSelection];
-  let playerWins = false;
+  let playerWon = false;
 
   console.log(`The computer picked: ${computerSelection}`);
 
   // Tie Result
   if (playerSelection === computerSelection) {
     result = "tie";
-    console.log("It's a tie.");
+    console.log("Result: It's a tie.");
   } else {
     // Player win Result
     for (let i = 0; i < wins.length; i++) {
       if (JSON.stringify(combination) === JSON.stringify(wins[i])) {
-        playerWins = true;
+        playerWon = true;
         break;
       }
     }
-    if (playerWins) {
+    if (playerWon) {
       result = "player";
       console.log(
         `Result: ${playerSelection} beats ${computerSelection}. You win this round!`
